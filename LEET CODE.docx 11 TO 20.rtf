@@ -1,0 +1,228 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.17763}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\tx600\f0\fs22\lang9 11)CONTAINER WITH MOST WATER:-\par
+class Solution(object):\par
+    def maxArea(self, height):\par
+        ans = 0\par
+        ptr1 = 0\par
+        ptr2 = len(height) - 1\par
+\par
+        while ptr1 < ptr2:\par
+            if min(height[ptr1], height[ptr2]) * (ptr2 - ptr1) > ans:\par
+                ans = min(height[ptr1], height[ptr2]) * (ptr2 - ptr1)\par
+            if height[ptr1] < height[ptr2]:\par
+                ptr1 += 1\par
+            else:\par
+                ptr2 -= 1\par
+            \par
+        return ans\par
+12)INTEGER TO ROMAN:-\par
+class Solution(object):\par
+    def maxArea(self, height):\par
+        ans = 0\par
+        ptr1 = 0\par
+        ptr2 = len(height) - 1\par
+\par
+        while ptr1 < ptr2:\par
+            if min(height[ptr1], height[ptr2]) * (ptr2 - ptr1) > ans:\par
+                ans = min(height[ptr1], height[ptr2]) * (ptr2 - ptr1)\par
+            if height[ptr1] < height[ptr2]:\par
+                ptr1 += 1\par
+            else:\par
+                ptr2 -= 1\par
+            \par
+        return ans\par
+13)ROMAN TO INTEGER:-\par
+class Solution(object):\par
+    def maxArea(self, height):\par
+        ans = 0\par
+        ptr1 = 0\par
+        ptr2 = len(height) - 1\par
+\par
+        while ptr1 < ptr2:\par
+            if min(height[ptr1], height[ptr2]) * (ptr2 - ptr1) > ans:\par
+                ans = min(height[ptr1], height[ptr2]) * (ptr2 - ptr1)\par
+            if height[ptr1] < height[ptr2]:\par
+                ptr1 += 1\par
+            else:\par
+                ptr2 -= 1\par
+            \par
+        return ans\par
+14)LONGEST COMMON PREFIX:-\par
+lass Solution(object):\par
+    def longestCommonPrefix(self, strs):\par
+        strs_length = len(strs[0])\par
+        if len(strs) == 1:\par
+            return strs[0]\par
+        for i in range(strs_length):\par
+            for_check = strs[0][:(strs_length-i)]\par
+            is_good = all(s.startswith(for_check) for s in strs)\par
+            if is_good:\par
+                return for_check\par
+        return ""\par
+ 15)3SUM:-\par
+class Solution(object):\par
+    def threeSum(self, nums):\par
+        r=[]\par
+        nums.sort()\par
+        n=len(nums)\par
+        for i in range(n-2):\par
+            if i>0 and nums[i]==nums[i-1]:continue\par
+            l,rgt=i+1,n-1\par
+            while l<rgt:\par
+                s=nums[i]+nums[l]+nums[rgt]\par
+                if s==0:\par
+                    r.append([nums[i],nums[l],nums[rgt]])\par
+                    while l<rgt and nums[l]==nums[l+1]:l+=1\par
+                    while l<rgt and nums[rgt]==nums[rgt-1]:rgt-=1\par
+                    l+=1;rgt-=1\par
+                elif s<0:l+=1\par
+                else:rgt-=1\par
+        return r    \par
+   16)3 SUM CLOSEST:-\par
+class Solution(object):\par
+    def threeSumClosest(self, nums, target):\par
+        """\par
+        :type nums: List[int]\par
+        :type target: int\par
+        :rtype: int\par
+        """\par
+        nums.sort()\par
+        closest_sum = float('inf')\par
+        min_diff = float('inf')\par
+\par
+        for i in range(len(nums) - 2):\par
+            left, right = i + 1, len(nums) - 1\par
+\par
+            while left < right:\par
+                current_sum = nums[i] + nums[left] + nums[right]\par
+                current_diff = abs(current_sum - target)\par
+\par
+                if current_diff < min_diff:\par
+                    min_diff = current_diff\par
+                    closest_sum = current_sum\par
+\par
+                if current_sum < target:\par
+                    left += 1\par
+                else:\par
+                    right -= 1\par
+\par
+        return closest_sum     \par
+17)LETTER COMBINATION OF A PHONE NUMBER:-\par
+Class Solution(object):\par
+    def letterCombinations(self, digits):\par
+        """\par
+     :type digits: str\par
+        :rtype: List[str]\par
+        """\par
+        keypad = \{\par
+            "2": ["a", "b", "c"],\par
+            "3": ["d", "e", "f"],\par
+            "4": ["g", "h", "i"],\par
+            "5": ["j", "k", "l"],\par
+            "6": ["m", "n", "o"],\par
+            "7": ["p", "q", "r", "s"],\par
+            "8": ["t", "u", "v"],\par
+            "9": ["w", "x", "y", "z"]\par
+        \}\par
+        def mixmatch(l1,l2):\par
+            r=[]\par
+            for i in l1:\par
+                for j in l2:\par
+                    r.append(i+j)\par
+            return r\par
+\par
+        if digits=="": return []\par
+        elif len(digits)==1:\par
+            return keypad[digits]\par
+        else:\par
+            result=keypad[digits[0]]\par
+            for i in range(1,len(digits)):\par
+                result=mixmatch(result,keypad[digits[i]])\par
+        return result    \par
+18)4 SUM:-\par
+class Solution(object):\par
+    def fourSum(self, nums, target):\par
+    # Optimal approach with pruning\par
+        nums.sort()\par
+        n = len(nums)\par
+        if n < 4:\par
+            return []\par
+        ans = []\par
+        for i in range(n):\par
+            if i > 0 and nums[i] == nums[i - 1]:\par
+                continue\par
+\par
+            if i + 3 < n and nums[i] + nums[i+1] + nums[i+2] + nums[i+3] > target:\par
+                break\par
+            if nums[i] + nums[n-1] + nums[n-2] + nums[n-3] < target:\par
+                continue\par
+\par
+            for j in range(i + 1, n):\par
+                if j > i + 1 and nums[j] == nums[j - 1]:\par
+                    continue\par
+\par
+                if j + 2 < n and nums[i] + nums[j] + nums[j+1] + nums[j+2] > target:\par
+                    break\par
+                if nums[i] + nums[j] + nums[n-1] + nums[n-2] < target:\par
+                    continue\par
+\par
+                k = j + 1\par
+                l = n - 1\par
+                while k < l:\par
+                    sum_ = nums[i] + nums[j] + nums[k] + nums[l]\par
+                    if sum_ == target:\par
+                        ans.append([nums[i], nums[j], nums[k], nums[l]])\par
+                        k += 1\par
+                        l -= 1\par
+                        while k < l and nums[k] == nums[k - 1]:\par
+                            k += 1\par
+                        while k < l and nums[l] == nums[l + 1]:\par
+                            l -= 1\par
+                    elif sum_ < target:\par
+                        k += 1\par
+                    else:\par
+                        l -= 1\par
+        return ans  \par
+19)REMOVE NTH NODE FROM END OF LIST:-\par
+# Definition for singly-linked list.\par
+# class ListNode(object):\par
+#     def __init__(self, val=0, next=None):\par
+#         self.val = val\par
+#         self.next = next\par
+class Solution(object):\par
+    def removeNthFromEnd(self, head, n):\par
+        dummy = ListNode(0, head)\par
+        fast = slow = dummy\par
+        \par
+        # Fast ko n+1 steps aage bhejna hai -> direct delete point mil jayega\par
+        for _ in range(n+1):\par
+            fast = fast.next\par
+        \par
+        # Jab tak fast None nahi hota, dono ko saath chalana hai\par
+        while fast:\par
+            fast = fast.next\par
+            slow = slow.next\par
+        \par
+        # Node skip karna hai\par
+        slow.next = slow.next.next\par
+        return dummy.next\par
+20)VALID PARENTHESES:-\par
+class Solution(object):\par
+    def isValid(self, s):\par
+        stack = []\par
+        bracket_map = \{')': '(', ']': '[', '\}': '\{'\}\par
+\par
+        for char in s:\par
+            if char in bracket_map.values():  \par
+                stack.append(char)\par
+            elif char in bracket_map:  \par
+                if not stack or stack[-1] != bracket_map[char]:\par
+                    return False\par
+                stack.pop()  \par
+\par
+        return len(stack) == 0\par
+        \par
+        \par
+}
+ 
